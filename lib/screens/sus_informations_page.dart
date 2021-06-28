@@ -3,6 +3,8 @@ import 'package:nossosus_app/shared/themes/app_colors.dart';
 import 'package:nossosus_app/shared/themes/app_images.dart';
 import 'package:nossosus_app/shared/themes/app_text_styles.dart';
 
+import 'home_page.dart';
+
 class CardSusPage extends StatelessWidget {
   const CardSusPage({Key? key}) : super(key: key);
 
@@ -65,47 +67,8 @@ class CardSusPage extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: Container(
-        color: AppColors.primary,
-        height: 56,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.home_outlined),
-                  color: AppColors.bottomNotSelect,
-                ),
-                // Text('Início', style: TextStyles.textAppBar)
-              ],
-            ),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.menu),
-                  color: AppColors.bottomSelect,
-                ),
-                // Text('Serviços', style: TextStyles.textAppBarNS)
-              ],
-            ),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.person),
-                  color: AppColors.bottomNotSelect,
-                ),
-                // Text('Perfil', style: TextStyles.textAppBarNS)
-              ],
-            ),
-          ],
-        ),
+      bottomNavigationBar: AppBottom(
+        activeBottom: 1,
       ),
     );
   }

@@ -179,47 +179,8 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      bottomNavigationBar: Container(
-        color: AppColors.primary,
-        height: 56,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.home_outlined),
-                  color: AppColors.bottomSelect,
-                ),
-                // Text('Início', style: TextStyles.textAppBar)
-              ],
-            ),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.menu),
-                  color: AppColors.bottomNotSelect,
-                ),
-                // Text('Serviços', style: TextStyles.textAppBarNS)
-              ],
-            ),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.person),
-                  color: AppColors.bottomNotSelect,
-                ),
-                // Text('Perfil', style: TextStyles.textAppBarNS)
-              ],
-            ),
-          ],
-        ),
+      bottomNavigationBar: AppBottom(
+        activeBottom: 0,
       ),
     );
   }
@@ -241,7 +202,9 @@ class AppBottom extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/');
+                },
                 icon: Icon(Icons.home_outlined),
                 color: activeBottom == 0
                     ? AppColors.bottomSelect
@@ -254,7 +217,9 @@ class AppBottom extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/map');
+                },
                 icon: Icon(Icons.menu),
                 color: activeBottom == 1
                     ? AppColors.bottomSelect

@@ -4,6 +4,7 @@ import 'package:nossosus_app/shared/themes/app_images.dart';
 import 'package:nossosus_app/shared/themes/app_text_styles.dart';
 
 import 'home_page.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CardSusPage extends StatelessWidget {
   const CardSusPage({Key? key}) : super(key: key);
@@ -57,13 +58,19 @@ class CardSusPage extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20),
-            Card(
-              child: ListTile(
-                leading: Icon(Icons.check),
-                title: Text('Baixar Conecte SUS',
-                    style: TextStyles.titleCardPrimary),
+            GestureDetector(
+              child: Card(
+                child: ListTile(
+                  leading: Icon(Icons.check),
+                  title: Text('Baixar Conecte SUS',
+                      style: TextStyles.titleCardPrimary),
+                ),
               ),
-            )
+              onTap: () {
+                _launchURL(
+                    'https://play.google.com/store/apps/details?id=br.gov.datasus.cnsdigital&hl=pt_BR&gl=US');
+              },
+            ),
           ],
         ),
       ),
@@ -71,5 +78,13 @@ class CardSusPage extends StatelessWidget {
         activeBottom: 1,
       ),
     );
+  }
+}
+
+_launchURL(String url) async {
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
   }
 }

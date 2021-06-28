@@ -18,22 +18,25 @@ class _HomePageState extends State<HomePage> {
         size: 40.0,
         color: Color(0xFFAD2626),
       ),
-      'title': 'Serviços SUS'
+      'title': 'Serviços SUS',
+      'route-page': '/map',
     },
     {
       'icon': Image.asset(
-        AppImages.iconStroke,
+        "icons/cards/stroke.png",
         height: 40,
         width: 40,
       ),
-      'title': 'Autoavaliar sintomas da COVID-19'
+      'title': 'Autoavaliar sintomas da COVID-19',
+      'route-page': '/sus-atendimento',
     },
     {
       'icon': Image.asset(
         AppImages.iconCartaoSus,
-        height: 80,
+        height: 40,
       ),
-      'title': 'Informações sobre o SUS'
+      'title': 'Informações sobre o SUS',
+      'route-page': '/sus-atendimento',
     },
     {
       'icon': Icon(
@@ -41,7 +44,8 @@ class _HomePageState extends State<HomePage> {
         size: 40.0,
         color: Color(0xFF6A26AD),
       ),
-      'title': 'Notícias'
+      'title': 'Notícias',
+      'route-page': '/sus-atendimento',
     },
   ];
 
@@ -52,12 +56,28 @@ class _HomePageState extends State<HomePage> {
         preferredSize: Size.fromHeight(182),
         child: Container(
           height: 182,
-          child: Center(
-            child: ListTile(
-              title: Text(
-                'Seja bem-vindo',
-                style: TextStyles.titleRegular,
-              ),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                ListTile(
+                  title: Text(
+                    'Seja bem-vindo',
+                    style: TextStyles.titleRegular,
+                  ),
+                ),
+                TextField(
+                  decoration: InputDecoration(
+                    hintText: 'O que você procura?',
+                    suffixIcon: Icon(Icons.search),
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.red, width: 32.0),
+                        borderRadius: BorderRadius.circular(252.0)),
+                  ),
+                )
+              ],
             ),
           ),
           decoration: BoxDecoration(
@@ -77,14 +97,19 @@ class _HomePageState extends State<HomePage> {
             Text('Cartão SUS', style: TextStyles.titleCategoryCard),
             SizedBox(height: 16),
             Container(
-              child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0),
-                ),
-                child: ListTile(
-                  leading: Icon(Icons.check),
-                  title: Text('Como obter meu Cartão SUS?',
-                      style: TextStyles.titleCardPrimary),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, '/card-sus');
+                },
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  child: ListTile(
+                    leading: Icon(Icons.check),
+                    title: Text('Como obter meu Cartão SUS?',
+                        style: TextStyles.titleCardPrimary),
+                  ),
                 ),
               ),
               decoration: BoxDecoration(
@@ -115,21 +140,27 @@ class _HomePageState extends State<HomePage> {
                     return Container(
                       height: 82,
                       width: 131,
-                      child: Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0),
-                        ),
-                        child: Center(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              cardSecundary[index]['icon'],
-                              Text(
-                                cardSecundary[index]['title'],
-                                style: TextStyles.titleCardPrimary,
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(
+                              context, cardSecundary[index]['route-page']);
+                        },
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          child: Center(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                cardSecundary[index]['icon'],
+                                Text(
+                                  cardSecundary[index]['title'],
+                                  style: TextStyles.titleCardPrimary,
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -162,7 +193,7 @@ class _HomePageState extends State<HomePage> {
                   icon: Icon(Icons.home_outlined),
                   color: AppColors.bottomSelect,
                 ),
-                Text('Início', style: TextStyles.textAppBar)
+                // Text('Início', style: TextStyles.textAppBar)
               ],
             ),
             Column(
@@ -173,7 +204,7 @@ class _HomePageState extends State<HomePage> {
                   icon: Icon(Icons.menu),
                   color: AppColors.bottomNotSelect,
                 ),
-                Text('Serviços', style: TextStyles.textAppBarNS)
+                // Text('Serviços', style: TextStyles.textAppBarNS)
               ],
             ),
             Column(
@@ -184,11 +215,68 @@ class _HomePageState extends State<HomePage> {
                   icon: Icon(Icons.person),
                   color: AppColors.bottomNotSelect,
                 ),
-                Text('Perfil', style: TextStyles.textAppBarNS)
+                // Text('Perfil', style: TextStyles.textAppBarNS)
               ],
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class AppBottom extends StatelessWidget {
+  final activeBottom;
+  const AppBottom({this.activeBottom, Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: AppColors.primary,
+      height: 56,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              IconButton(
+                onPressed: () {},
+                icon: Icon(Icons.home_outlined),
+                color: activeBottom == 0
+                    ? AppColors.bottomSelect
+                    : AppColors.bottomNotSelect,
+              ),
+              // Text('Início', style: TextStyles.textAppBar)
+            ],
+          ),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              IconButton(
+                onPressed: () {},
+                icon: Icon(Icons.menu),
+                color: activeBottom == 1
+                    ? AppColors.bottomSelect
+                    : AppColors.bottomNotSelect,
+              ),
+              // Text('Serviços', style: TextStyles.textAppBarNS)
+            ],
+          ),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              IconButton(
+                onPressed: () {},
+                icon: Icon(Icons.person),
+                color: activeBottom == 2
+                    ? AppColors.bottomSelect
+                    : AppColors.bottomNotSelect,
+              ),
+              // Text('Perfil', style: TextStyles.textAppBarNS)
+            ],
+          ),
+        ],
       ),
     );
   }

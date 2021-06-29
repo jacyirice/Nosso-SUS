@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -8,6 +9,15 @@ import 'package:geolocator/geolocator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'bottomBar.dart';
+
+num _coordinateDistance(lat1, lon1, lat2, lon2) {
+  var p = 0.017453292519943295;
+  var c = cos;
+  var a = 0.5 -
+      c((lat2 - lat1) * p) / 2 +
+      c(lat1 * p) * c(lat2 * p) * (1 - c((lon2 - lon1) * p)) / 2;
+  return 12742 * asin(sqrt(a));
+}
 
 class SearchPage extends StatefulWidget {
   String search_service;
@@ -21,8 +31,10 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+  // LatLngBounds? bound;
   final _myControllerSearch = TextEditingController();
   String _dropdownCityValue = 'Cidade';
+  var _currentLoc = null;
   List<String> citys = ['Cidade'];
   var _controller;
   double lat = -10.1707379;
@@ -108,6 +120,7 @@ class _SearchPageState extends State<SearchPage> {
                         elevation: 16,
                         onChanged: (String? v) {
                           _dropdownCityValue = v!;
+                          _currentLoc = null;
                           setState(() {});
                         },
                         items:
@@ -163,6 +176,8 @@ class _SearchPageState extends State<SearchPage> {
   List<Marker> _markers = <Marker>[];
 
   get_makers(snapshot) {
+    num distanceInMeters = 0;
+    Marker? markerCloser;
     List<Marker> aux = <Marker>[];
     for (DocumentSnapshot document in snapshot.data.docs) {
       Map<String, dynamic> data = document.data() as Map<String, dynamic>;
@@ -179,7 +194,7 @@ class _SearchPageState extends State<SearchPage> {
             .toLowerCase()
             .contains(widget.search_service.toLowerCase())) flag = false;
       }
-      if (flag)
+      if (flag) {
         aux.add(
           Marker(
             // icon: BitmapDescriptor.from.fromBytes(Icons.help_center.t),
@@ -204,6 +219,32 @@ class _SearchPageState extends State<SearchPage> {
             },
           ),
         );
+        if (_currentLoc != null) {
+          num auxDistance = _coordinateDistance(
+            _currentLoc.latitude,
+            _currentLoc.longitude,
+            aux[aux.length - 1].position.latitude,
+            aux[aux.length - 1].position.longitude,
+          );
+          if (distanceInMeters <= 0) {
+            distanceInMeters = auxDistance;
+            markerCloser = aux[aux.length - 1];
+          } else if (auxDistance < distanceInMeters) {
+            distanceInMeters = auxDistance;
+            markerCloser = aux[aux.length - 1];
+          }
+        }
+      }
+    }
+    if (_currentLoc != null && markerCloser != null) {
+      LatLngBounds bound = LatLngBounds(
+          northeast: LatLng(
+            _currentLoc.latitude,
+            _currentLoc.longitude,
+          ),
+          southwest: markerCloser.position);
+      CameraUpdate u2 = CameraUpdate.newLatLngBounds(bound, 50);
+      _controller.animateCamera(u2);
     }
     _markers = aux;
   }
@@ -223,6 +264,7 @@ class _SearchPageState extends State<SearchPage> {
             onPressed: () {
               _determinePosition().then(
                 (value) {
+                  _currentLoc = value;
                   _controller.animateCamera(
                     CameraUpdate.newCameraPosition(
                       _initialCameraPosition(value.latitude, value.longitude),

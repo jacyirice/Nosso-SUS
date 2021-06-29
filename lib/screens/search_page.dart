@@ -10,14 +10,20 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'bottomBar.dart';
 
 class SearchPage extends StatefulWidget {
-  SearchPage({Key? key}) : super(key: key);
+  String search_service;
+  String search_city;
+
+  SearchPage({this.search_service = '', this.search_city = '', Key? key})
+      : super(key: key);
 
   @override
   _SearchPageState createState() => _SearchPageState();
 }
 
 class _SearchPageState extends State<SearchPage> {
-  final _formKey = GlobalKey<FormState>();
+  final _myControllerSearch = TextEditingController();
+  String _dropdownCityValue = 'Cidade';
+  List<String> citys = ['Cidade'];
   var _controller;
   double lat = -10.1707379;
   double long = -48.3090628;
@@ -26,7 +32,6 @@ class _SearchPageState extends State<SearchPage> {
       FirebaseFirestore.instance.collection('sus').snapshots();
 
   Future<Position> _determinePosition() async {
-    print(1);
     bool serviceEnabled;
     LocationPermission permission;
     _showSnackBar('Buscando informações...', false);
@@ -34,7 +39,6 @@ class _SearchPageState extends State<SearchPage> {
     if (!serviceEnabled) {
       return Future.error('Os serviços de localização estão desativados.');
     }
-    print(2);
 
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
@@ -43,7 +47,6 @@ class _SearchPageState extends State<SearchPage> {
         return Future.error('Permissões de localização negadas.');
       }
     }
-    print(3);
 
     if (permission == LocationPermission.deniedForever) {
       return Future.error(
@@ -63,59 +66,81 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 
-  void _showSearchForm(_formKey, context) {
+  void _showSearchForm(context) {
     showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            content: Form(
-              key: _formKey,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        labelText: 'Pesquisa',
-                        labelStyle: TextStyle(color: AppColors.primary),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(2.0),
-                          borderSide: BorderSide(
-                            color: AppColors.primary,
-                            width: 2.0,
-                          ),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: TextField(
+                    controller: _myControllerSearch,
+                    decoration: InputDecoration(
+                      labelText: 'Pesquisa',
+                      labelStyle: TextStyle(color: AppColors.primary),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(2.0),
+                        borderSide: BorderSide(
+                          color: AppColors.primary,
+                          width: 2.0,
                         ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(2.0),
-                          borderSide: BorderSide(
-                            color: AppColors.primary,
-                            width: 2.0,
-                          ),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(2.0),
+                        borderSide: BorderSide(
+                          color: AppColors.primary,
+                          width: 2.0,
                         ),
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ElevatedButton(
-                      child: Text(
-                        "Pesquisar",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.black),
-                      ),
-                      onPressed: () {
-                        if (_formKey.currentState.validate()) {
-                          _formKey.currentState.save();
-                        }
-                      },
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(AppColors.primary)),
+                ),
+                Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: StatefulBuilder(
+                        builder: (BuildContext context, StateSetter setState) {
+                      return DropdownButton(
+                        value: _dropdownCityValue,
+                        iconSize: 24,
+                        elevation: 16,
+                        onChanged: (String? v) {
+                          _dropdownCityValue = v!;
+                          setState(() {});
+                        },
+                        items:
+                            citys.map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      );
+                    })),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton(
+                    child: Text(
+                      "Pesquisar",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: Colors.black),
                     ),
-                  )
-                ],
-              ),
+                    onPressed: () {
+                      widget.search_service = _myControllerSearch.text;
+                      widget.search_city = _dropdownCityValue != 'Cidade'
+                          ? _dropdownCityValue
+                          : '';
+                      Navigator.pop(context);
+                      setState(() {});
+                    },
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(AppColors.primary)),
+                  ),
+                )
+              ],
             ),
           );
         });
@@ -141,30 +166,44 @@ class _SearchPageState extends State<SearchPage> {
     List<Marker> aux = <Marker>[];
     for (DocumentSnapshot document in snapshot.data.docs) {
       Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-      aux.add(
-        Marker(
-          // icon: BitmapDescriptor.from.fromBytes(Icons.help_center.t),
-          markerId: MarkerId(document.id),
-          position: LatLng(
-            double.parse(data['loc_lat']),
-            double.parse(data['loc_long']),
-          ),
-          infoWindow: InfoWindow(
-            title: data['nome'],
-            snippet: data['servico'],
-          ),
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => DetalheUbsPage(
-                  linkUbs: data['link'],
+      if (!citys.contains(data['cidade'])) citys.add(data['cidade']);
+      bool flag = true;
+
+      if (widget.search_city.isNotEmpty) {
+        if (!data['cidade']
+            .toLowerCase()
+            .contains(widget.search_city.toLowerCase())) flag = false;
+      }
+      if (flag && widget.search_service.isNotEmpty) {
+        if (!data['servico']
+            .toLowerCase()
+            .contains(widget.search_service.toLowerCase())) flag = false;
+      }
+      if (flag)
+        aux.add(
+          Marker(
+            // icon: BitmapDescriptor.from.fromBytes(Icons.help_center.t),
+            markerId: MarkerId(document.id),
+            position: LatLng(
+              double.parse(data['loc_lat']),
+              double.parse(data['loc_long']),
+            ),
+            infoWindow: InfoWindow(
+              title: data['nome'],
+              snippet: data['servico'],
+            ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DetalheUbsPage(
+                    linkUbs: data['link'],
+                  ),
                 ),
-              ),
-            );
-          },
-        ),
-      );
+              );
+            },
+          ),
+        );
     }
     _markers = aux;
   }
@@ -201,7 +240,7 @@ class _SearchPageState extends State<SearchPage> {
           IconButton(
               icon: Icon(Icons.search),
               onPressed: () {
-                _showSearchForm(_formKey, context);
+                _showSearchForm(context);
               }),
         ],
       ),

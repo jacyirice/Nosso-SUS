@@ -3,6 +3,8 @@ import 'package:nossosus_app/shared/themes/app_colors.dart';
 import 'package:nossosus_app/shared/themes/app_images.dart';
 import 'package:nossosus_app/shared/themes/app_text_styles.dart';
 
+import 'bottomBar.dart';
+
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
 
@@ -21,19 +23,19 @@ class _HomePageState extends State<HomePage> {
       'title': 'Serviços SUS',
       'route-page': '/map',
     },
-    {
-      'icon': Image.asset(
-        "icons/cards/stroke.png",
-        height: 40,
-        width: 40,
-      ),
-      'title': 'Autoavaliar sintomas da COVID-19',
-      'route-page': '/sus-atendimento',
-    },
+    // {
+    //   'icon': Image.asset(
+    //     AppImages.iconStroke,
+    //     height: 40,
+    //     width: 40,
+    //   ),
+    //   'title': 'Autoavaliar sintomas da COVID-19',
+    //   'route-page': '/sus-atendimento',
+    // },
     {
       'icon': Image.asset(
         AppImages.iconCartaoSus,
-        height: 40,
+        height: 50,
       ),
       'title': 'Informações sobre o SUS',
       'route-page': '/sus-atendimento',
@@ -181,67 +183,6 @@ class _HomePageState extends State<HomePage> {
       ),
       bottomNavigationBar: AppBottom(
         activeBottom: 0,
-      ),
-    );
-  }
-}
-
-class AppBottom extends StatelessWidget {
-  final activeBottom;
-  const AppBottom({this.activeBottom, Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: AppColors.primary,
-      height: 56,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              IconButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/');
-                },
-                icon: Icon(Icons.home_outlined),
-                color: activeBottom == 0
-                    ? AppColors.bottomSelect
-                    : AppColors.bottomNotSelect,
-              ),
-              // Text('Início', style: TextStyles.textAppBar)
-            ],
-          ),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              IconButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/map');
-                },
-                icon: Icon(Icons.menu),
-                color: activeBottom == 1
-                    ? AppColors.bottomSelect
-                    : AppColors.bottomNotSelect,
-              ),
-              // Text('Serviços', style: TextStyles.textAppBarNS)
-            ],
-          ),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.person),
-                color: activeBottom == 2
-                    ? AppColors.bottomSelect
-                    : AppColors.bottomNotSelect,
-              ),
-              // Text('Perfil', style: TextStyles.textAppBarNS)
-            ],
-          ),
-        ],
       ),
     );
   }

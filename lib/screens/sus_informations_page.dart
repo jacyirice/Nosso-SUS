@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:nossosus_app/shared/themes/app_colors.dart';
 import 'package:nossosus_app/shared/themes/app_images.dart';
 import 'package:nossosus_app/shared/themes/app_text_styles.dart';
 
-import 'home_page.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'bottomBar.dart';
+// import 'package:url_launcher/url_launcher.dart';
 
 class CardSusPage extends StatelessWidget {
   const CardSusPage({Key? key}) : super(key: key);
@@ -82,9 +81,9 @@ class CardSusPage extends StatelessWidget {
 }
 
 _launchURL(String url) async {
-  if (await canLaunch(url)) {
-    await launch(url);
-  } else {
-    throw 'Could not launch $url';
-  }
+  // if (await canLaunch(url)) {
+  //   await launch(url);
+  // } else {
+  //   throw 'Could not launch $url';
+  // }
 }

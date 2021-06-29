@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nossosus_app/screens/search_page.dart';
 import 'package:nossosus_app/shared/themes/app_colors.dart';
 import 'package:nossosus_app/shared/themes/app_images.dart';
 import 'package:nossosus_app/shared/themes/app_text_styles.dart';
@@ -13,6 +14,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final _myControllerSearch = TextEditingController();
   List cardSecundary = [
     {
       'icon': Icon(
@@ -40,15 +42,15 @@ class _HomePageState extends State<HomePage> {
       'title': 'Informações sobre o SUS',
       'route-page': '/sus-atendimento',
     },
-    {
-      'icon': Icon(
-        Icons.list_alt,
-        size: 40.0,
-        color: Color(0xFF6A26AD),
-      ),
-      'title': 'Notícias',
-      'route-page': '/sus-atendimento',
-    },
+    // {
+    //   'icon': Icon(
+    //     Icons.list_alt,
+    //     size: 40.0,
+    //     color: Color(0xFF6A26AD),
+    //   ),
+    //   'title': 'Notícias',
+    //   'route-page': '/sus-atendimento',
+    // },
   ];
 
   @override
@@ -71,9 +73,22 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 TextField(
+                  controller: _myControllerSearch,
                   decoration: InputDecoration(
                     hintText: 'O que você procura?',
-                    suffixIcon: Icon(Icons.search),
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SearchPage(
+                              search_service: _myControllerSearch.text,
+                            ),
+                          ),
+                        );
+                      },
+                      icon: Icon(Icons.search),
+                    ),
                     border: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.red, width: 32.0),
                         borderRadius: BorderRadius.circular(252.0)),

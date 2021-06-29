@@ -74,8 +74,10 @@ class _HomePageState extends State<HomePage> {
                 ),
                 TextField(
                   controller: _myControllerSearch,
+                  style: TextStyle(color: AppColors.background),
                   decoration: InputDecoration(
                     hintText: 'O que você procura?',
+                    hintStyle: TextStyle(color: AppColors.background),
                     suffixIcon: IconButton(
                       onPressed: () {
                         Navigator.push(
@@ -90,8 +92,22 @@ class _HomePageState extends State<HomePage> {
                       icon: Icon(Icons.search),
                     ),
                     border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.red, width: 32.0),
+                        borderSide: BorderSide(width: 32.0),
                         borderRadius: BorderRadius.circular(252.0)),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(252.0),
+                      borderSide: BorderSide(
+                        color: AppColors.background,
+                        width: 2.0,
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(252.0),
+                      borderSide: BorderSide(
+                        color: AppColors.background,
+                        width: 2.0,
+                      ),
+                    ),
                   ),
                 )
               ],

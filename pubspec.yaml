@@ -43,6 +43,7 @@ dependencies:
   firebase_auth: ^1.4.1
   cloud_firestore: ^2.2.2
   webview_flutter: ^2.0.9
+  animated_splash: ^1.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nossosus_app/screens/home_page.dart';
 import 'package:nossosus_app/screens/search_page.dart';
+import 'package:nossosus_app/screens/services_page.dart';
 import 'package:nossosus_app/screens/splash_page.dart';
 import 'package:nossosus_app/screens/sus_atendimento_page.dart';
 import 'package:nossosus_app/screens/sus_informations_page.dart';
@@ -25,6 +26,7 @@ class AppWidget extends StatelessWidget {
             initialRoute: '/splash',
             routes: {
               '/': (context) => HomePage(),
+              '/services': (context) => ServicesPage(),
               '/splash': (context) => SplashPage(),
               '/map': (context) => SearchPage(),
               '/card-sus': (context) => CardSusPage(),

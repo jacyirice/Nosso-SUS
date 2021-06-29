@@ -33,7 +33,7 @@ class AppBottom extends StatelessWidget {
             children: [
               IconButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/map');
+                  Navigator.pushNamed(context, '/services');
                 },
                 icon: Icon(Icons.menu),
                 color: activeBottom == 1

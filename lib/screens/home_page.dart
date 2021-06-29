@@ -89,7 +89,10 @@ class _HomePageState extends State<HomePage> {
                           ),
                         );
                       },
-                      icon: Icon(Icons.search),
+                      icon: Icon(
+                        Icons.search,
+                        color: AppColors.background,
+                      ),
                     ),
                     border: OutlineInputBorder(
                         borderSide: BorderSide(width: 32.0),

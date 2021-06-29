@@ -31,11 +31,11 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  // LatLngBounds? bound;
+  List<Marker> _markers = <Marker>[];
+  List<String> citys = ['Cidade'];
   final _myControllerSearch = TextEditingController();
   String _dropdownCityValue = 'Cidade';
   var _currentLoc = null;
-  List<String> citys = ['Cidade'];
   var _controller;
   double lat = -10.1707379;
   double long = -48.3090628;
@@ -173,8 +173,6 @@ class _SearchPageState extends State<SearchPage> {
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
-  List<Marker> _markers = <Marker>[];
-
   get_makers(snapshot) {
     num distanceInMeters = 0;
     Marker? markerCloser;
@@ -236,15 +234,45 @@ class _SearchPageState extends State<SearchPage> {
         }
       }
     }
-    if (_currentLoc != null && markerCloser != null) {
-      LatLngBounds bound = LatLngBounds(
-          northeast: LatLng(
-            _currentLoc.latitude,
-            _currentLoc.longitude,
+    if (_currentLoc != null) {
+      LatLng currentLocLatLng = LatLng(
+        _currentLoc.latitude,
+        _currentLoc.longitude,
+      );
+      aux.add(
+        Marker(
+          icon:
+              BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueAzure),
+          markerId: MarkerId('home'),
+          position: currentLocLatLng,
+          infoWindow: InfoWindow(
+            title: 'Sua localização',
           ),
-          southwest: markerCloser.position);
-      CameraUpdate u2 = CameraUpdate.newLatLngBounds(bound, 50);
-      _controller.animateCamera(u2);
+          onTap: () {},
+        ),
+      );
+      print(aux[aux.length - 1].toString());
+      if (markerCloser != null) {
+        LatLng northeast;
+        LatLng southwest;
+        if (currentLocLatLng.latitude > markerCloser.position.latitude) {
+          southwest = markerCloser.position;
+          northeast = currentLocLatLng;
+        } else {
+          northeast = LatLng(
+            markerCloser.position.latitude,
+            currentLocLatLng.longitude,
+          );
+          southwest = LatLng(
+            currentLocLatLng.latitude,
+            markerCloser.position.longitude,
+          );
+        }
+        LatLngBounds bound =
+            LatLngBounds(northeast: northeast, southwest: southwest);
+        CameraUpdate u2 = CameraUpdate.newLatLngBounds(bound, 50);
+        _controller.animateCamera(u2);
+      }
     }
     _markers = aux;
   }

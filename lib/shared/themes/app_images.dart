@@ -4,4 +4,5 @@ class AppImages {
   static const iconPip = "assets/icons/cards/pip.png";
   static const iconStroke = "assets/icons/cards/stroke.png";
   static const splash = "assets/images/splash.png";
+  static const home_marker = "assets/images/home_marker.png";
 }

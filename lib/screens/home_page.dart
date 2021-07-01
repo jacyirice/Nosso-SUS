@@ -25,32 +25,14 @@ class _HomePageState extends State<HomePage> {
       'title': 'Serviços SUS',
       'route-page': '/map',
     },
-    // {
-    //   'icon': Image.asset(
-    //     AppImages.iconStroke,
-    //     height: 40,
-    //     width: 40,
-    //   ),
-    //   'title': 'Autoavaliar sintomas da COVID-19',
-    //   'route-page': '/sus-atendimento',
-    // },
     {
       'icon': Image.asset(
         AppImages.iconCartaoSus,
-        height: 50,
+        height: 40,
       ),
       'title': 'Informações sobre o SUS',
       'route-page': '/sus-atendimento',
     },
-    // {
-    //   'icon': Icon(
-    //     Icons.list_alt,
-    //     size: 40.0,
-    //     color: Color(0xFF6A26AD),
-    //   ),
-    //   'title': 'Notícias',
-    //   'route-page': '/sus-atendimento',
-    // },
   ];
 
   @override
@@ -119,14 +101,14 @@ class _HomePageState extends State<HomePage> {
           decoration: BoxDecoration(
             color: AppColors.primary,
             borderRadius: BorderRadius.only(
-              bottomLeft: const Radius.circular(67.0),
+              bottomLeft: Radius.circular(67.0),
             ),
           ),
         ),
       ),
       backgroundColor: AppColors.background,
       body: Padding(
-        padding: const EdgeInsets.all(23.0),
+        padding: EdgeInsets.all(23.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -160,7 +142,6 @@ class _HomePageState extends State<HomePage> {
             ),
             SizedBox(height: 16),
             Text('Acesso rápido', style: TextStyles.titleCategoryCard),
-            // SizedBox(height: 6),
             Expanded(
               child: GridView.builder(
                   padding: EdgeInsets.all(12),

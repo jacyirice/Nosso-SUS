@@ -14,7 +14,6 @@ class ServicesPage extends StatefulWidget {
 
 class _ServicesPageState extends State<ServicesPage> {
   TextEditingController editingController = TextEditingController();
-  String filter = '';
   List cards = [
     {
       'icon': Icon(
@@ -27,8 +26,8 @@ class _ServicesPageState extends State<ServicesPage> {
     },
     {
       'icon': Image.asset(
-        AppImages.iconCartaoSus,
-        height: 50,
+        AppImages.susLogo,
+        height: 40,
       ),
       'title': 'Informações sobre o SUS',
       'route-page': '/sus-atendimento',
@@ -41,7 +40,13 @@ class _ServicesPageState extends State<ServicesPage> {
   ];
   List cardsFilters = [];
 
-  fFilter() {
+  @override
+  initState() {
+    super.initState();
+    cardsFilters.addAll(cards);
+  }
+
+  cardsFilter(filter) {
     cardsFilters.clear();
     for (Map i in cards) {
       if (i['title'].toLowerCase().contains(filter)) cardsFilters.add(i);
@@ -50,7 +55,6 @@ class _ServicesPageState extends State<ServicesPage> {
 
   @override
   Widget build(BuildContext context) {
-    fFilter();
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -74,7 +78,7 @@ class _ServicesPageState extends State<ServicesPage> {
                       color: AppColors.primary,
                     ),
                     onPressed: () {
-                      filter = editingController.text;
+                      cardsFilter(editingController.text);
                       setState(() {});
                     }),
                 border: OutlineInputBorder(

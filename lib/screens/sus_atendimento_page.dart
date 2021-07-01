@@ -18,15 +18,16 @@ class SusAtendimentoPage extends StatelessWidget {
         title: Text('Documentação'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: EdgeInsets.all(8.0),
         child: Column(
           children: [
             Image.asset(AppImages.cardSus),
             SizedBox(height: 20),
             Text(
-                'Para ser atendido leve os seguintes documentos:\n\n• Documento de identificação com foto\n\n• Cartão do SUS',
-                textAlign: TextAlign.left,
-                style: TextStyle(fontWeight: FontWeight.bold)),
+              'Para ser atendido leve os seguintes documentos:\n\n• Documento de identificação com foto\n\n• Cartão do SUS',
+              textAlign: TextAlign.left,
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             SizedBox(height: 20),
             GestureDetector(
               onTap: () {

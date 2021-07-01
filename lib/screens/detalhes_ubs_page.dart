@@ -15,9 +15,8 @@ class DetalheUbsPage extends StatefulWidget {
 
 class _DetalheUbsPageState extends State<DetalheUbsPage> {
   @override
-  void initState() {
+  initState() {
     super.initState();
-    // Enable hybrid composition.
     if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
   }
 

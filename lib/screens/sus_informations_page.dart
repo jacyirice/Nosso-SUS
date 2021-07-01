@@ -57,18 +57,35 @@ class CardSusPage extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20),
-            GestureDetector(
-              child: Card(
-                child: ListTile(
-                  leading: Icon(Icons.check),
-                  title: Text('Baixar Conecte SUS',
-                      style: TextStyles.titleCardPrimary),
+            Container(
+              height: 71,
+              child: GestureDetector(
+                onTap: () {
+                  _launchURL(
+                      'https://play.google.com/store/apps/details?id=br.gov.datasus.cnsdigital&hl=pt_BR&gl=US');
+                },
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        AppImages.iconConecteSus,
+                        height: 71,
+                      ),
+                      Container(
+                        width: 225,
+                        child: Text(
+                          'Baixar Conecte SUS',
+                          style: TextStyles.titleCardPrimary,
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-              onTap: () {
-                _launchURL(
-                    'https://play.google.com/store/apps/details?id=br.gov.datasus.cnsdigital&hl=pt_BR&gl=US');
-              },
             ),
           ],
         ),

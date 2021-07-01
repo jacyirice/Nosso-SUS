@@ -10,6 +10,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'bottomBar.dart';
 
+// Fornece a distancia entre duas coordenadas
 num _coordinateDistance(lat1, lon1, lat2, lon2) {
   var p = 0.017453292519943295;
   var c = cos;
@@ -32,13 +33,17 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   List<Marker> _markers = <Marker>[];
-  List<String> citys = ['Cidade'];
+
   final _myControllerSearch = TextEditingController();
+  List<String> citys = ['Cidade'];
   String _dropdownCityValue = 'Cidade';
+
   var _currentLoc = null;
   var _controller;
-  double lat = -10.1707379;
-  double long = -48.3090628;
+
+  // Coordenadas do centro de palmas
+  double lat = -10.1881423;
+  double long = -48.3462844;
 
   Stream<QuerySnapshot> UbsStream =
       FirebaseFirestore.instance.collection('sus').snapshots();
@@ -173,29 +178,51 @@ class _SearchPageState extends State<SearchPage> {
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
-  get_makers(snapshot) {
+  bool _checkFilter(data, search_city, search_service) {
+    bool flag = true;
+    if (search_city.isNotEmpty) {
+      if (!data['cidade'].toLowerCase().contains(search_city.toLowerCase()))
+        flag = false;
+    }
+    if (flag && search_service.isNotEmpty) {
+      if (!data['servico'].toLowerCase().contains(search_service.toLowerCase()))
+        flag = false;
+    }
+    return flag;
+  }
+
+  LatLngBounds getLatLngBoundsCurrentLocate(currentLocLatLng, markerCloser) {
+    LatLng northeast;
+    LatLng southwest;
+    if (currentLocLatLng.latitude > markerCloser.position.latitude) {
+      southwest = markerCloser.position;
+      northeast = currentLocLatLng;
+    } else {
+      northeast = LatLng(
+        markerCloser.position.latitude,
+        currentLocLatLng.longitude,
+      );
+      southwest = LatLng(
+        currentLocLatLng.latitude,
+        markerCloser.position.longitude,
+      );
+    }
+    LatLngBounds bound =
+        LatLngBounds(northeast: northeast, southwest: southwest);
+    return bound;
+  }
+
+  void get_makers(snapshot) {
     num distanceInMeters = 0;
     Marker? markerCloser;
     List<Marker> aux = <Marker>[];
+
     for (DocumentSnapshot document in snapshot.data.docs) {
       Map<String, dynamic> data = document.data() as Map<String, dynamic>;
       if (!citys.contains(data['cidade'])) citys.add(data['cidade']);
-      bool flag = true;
-
-      if (widget.search_city.isNotEmpty) {
-        if (!data['cidade']
-            .toLowerCase()
-            .contains(widget.search_city.toLowerCase())) flag = false;
-      }
-      if (flag && widget.search_service.isNotEmpty) {
-        if (!data['servico']
-            .toLowerCase()
-            .contains(widget.search_service.toLowerCase())) flag = false;
-      }
-      if (flag) {
+      if (_checkFilter(data, widget.search_city, widget.search_service)) {
         aux.add(
           Marker(
-            // icon: BitmapDescriptor.from.fromBytes(Icons.help_center.t),
             markerId: MarkerId(document.id),
             position: LatLng(
               double.parse(data['loc_lat']),
@@ -203,18 +230,18 @@ class _SearchPageState extends State<SearchPage> {
             ),
             infoWindow: InfoWindow(
               title: data['nome'],
-              snippet: data['servico'],
-            ),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => DetalheUbsPage(
-                    linkUbs: data['link'],
+              // snippet: data['servico'],
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DetalheUbsPage(
+                      linkUbs: data['link'],
+                    ),
                   ),
-                ),
-              );
-            },
+                );
+              },
+            ),
           ),
         );
         if (_currentLoc != null) {
@@ -241,37 +268,23 @@ class _SearchPageState extends State<SearchPage> {
       );
       aux.add(
         Marker(
-          icon:
-              BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueAzure),
+          icon: BitmapDescriptor.defaultMarkerWithHue(
+            BitmapDescriptor.hueAzure,
+          ),
           markerId: MarkerId('home'),
           position: currentLocLatLng,
           infoWindow: InfoWindow(
             title: 'Sua localização',
           ),
-          onTap: () {},
         ),
       );
-      print(aux[aux.length - 1].toString());
       if (markerCloser != null) {
-        LatLng northeast;
-        LatLng southwest;
-        if (currentLocLatLng.latitude > markerCloser.position.latitude) {
-          southwest = markerCloser.position;
-          northeast = currentLocLatLng;
-        } else {
-          northeast = LatLng(
-            markerCloser.position.latitude,
-            currentLocLatLng.longitude,
-          );
-          southwest = LatLng(
-            currentLocLatLng.latitude,
-            markerCloser.position.longitude,
-          );
-        }
-        LatLngBounds bound =
-            LatLngBounds(northeast: northeast, southwest: southwest);
-        CameraUpdate u2 = CameraUpdate.newLatLngBounds(bound, 50);
-        _controller.animateCamera(u2);
+        _controller.animateCamera(
+          CameraUpdate.newLatLngBounds(
+            getLatLngBoundsCurrentLocate(currentLocLatLng, markerCloser),
+            50,
+          ),
+        );
       }
     }
     _markers = aux;
@@ -293,11 +306,6 @@ class _SearchPageState extends State<SearchPage> {
               _determinePosition().then(
                 (value) {
                   _currentLoc = value;
-                  _controller.animateCamera(
-                    CameraUpdate.newCameraPosition(
-                      _initialCameraPosition(value.latitude, value.longitude),
-                    ),
-                  );
                   setState(() {});
                 },
               ).catchError(
@@ -332,8 +340,11 @@ class _SearchPageState extends State<SearchPage> {
               markers: Set<Marker>.of(_markers),
               mapType: MapType.terrain,
               onMapCreated: _onMapCreated,
-              initialCameraPosition:
-                  _initialCameraPosition(lat = lat, long = long, zoom: 9),
+              initialCameraPosition: _initialCameraPosition(
+                lat = lat,
+                long = long,
+                zoom: 9,
+              ),
             );
           } else {
             return Center(

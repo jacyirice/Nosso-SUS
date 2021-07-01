@@ -5,6 +5,13 @@ class AppBottom extends StatelessWidget {
   final activeBottom;
   const AppBottom({this.activeBottom, Key? key}) : super(key: key);
 
+  Color getColorBottom(int pos) {
+    if (activeBottom == pos)
+      return AppColors.bottomSelect;
+    else
+      return AppColors.bottomNotSelect;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,14 +25,14 @@ class AppBottom extends StatelessWidget {
             children: [
               IconButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/');
+                  String? route = ModalRoute.of(context)?.settings.name;
+                  if (route != '/') {
+                    Navigator.pushNamed(context, '/');
+                  }
                 },
                 icon: Icon(Icons.home_outlined),
-                color: activeBottom == 0
-                    ? AppColors.bottomSelect
-                    : AppColors.bottomNotSelect,
+                color: getColorBottom(0),
               ),
-              // Text('Início', style: TextStyles.textAppBar)
             ],
           ),
           Column(
@@ -33,29 +40,16 @@ class AppBottom extends StatelessWidget {
             children: [
               IconButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/services');
+                  String? route = ModalRoute.of(context)?.settings.name;
+                  if (route != '/services') {
+                    Navigator.pushNamed(context, '/services');
+                  }
                 },
                 icon: Icon(Icons.menu),
-                color: activeBottom == 1
-                    ? AppColors.bottomSelect
-                    : AppColors.bottomNotSelect,
+                color: getColorBottom(1),
               ),
-              // Text('Serviços', style: TextStyles.textAppBarNS)
             ],
           ),
-          // Column(
-          //   mainAxisSize: MainAxisSize.min,
-          //   children: [
-          //     IconButton(
-          //       onPressed: () {},
-          //       icon: Icon(Icons.person),
-          //       color: activeBottom == 2
-          //           ? AppColors.bottomSelect
-          //           : AppColors.bottomNotSelect,
-          //     ),
-          //     // Text('Perfil', style: TextStyles.textAppBarNS)
-          //   ],
-          // ),
         ],
       ),
     );

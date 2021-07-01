@@ -6,7 +6,7 @@
         android:label="Nosso SUS"
         android:icon="@mipmap/ic_launcher">
         <meta-data android:name="com.google.android.geo.API_KEY"
-               android:value="AIzaSyDjcjAk1TF4qnFgeMFCaIeMmw5nc4juHu8"/>
+               android:value="${gKey_API}"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

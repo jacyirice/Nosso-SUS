@@ -1,3 +1,7 @@
+# Google Console
+.env
+google-services.json
+
 # Miscellaneous
 *.class
 *.log

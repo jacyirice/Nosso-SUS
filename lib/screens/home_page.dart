@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
     },
     {
       'icon': Image.asset(
-        AppImages.iconCartaoSus,
+        AppImages.iconInfoSus,
         height: 40,
       ),
       'title': 'Informações sobre o SUS',
@@ -115,6 +115,7 @@ class _HomePageState extends State<HomePage> {
             Text('Cartão SUS', style: TextStyles.titleCategoryCard),
             SizedBox(height: 16),
             Container(
+              height: 71,
               child: GestureDetector(
                 onTap: () {
                   Navigator.pushNamed(context, '/card-sus');
@@ -123,10 +124,21 @@ class _HomePageState extends State<HomePage> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15.0),
                   ),
-                  child: ListTile(
-                    leading: Icon(Icons.check),
-                    title: Text('Como obter meu Cartão SUS?',
-                        style: TextStyles.titleCardPrimary),
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        AppImages.iconCardSus,
+                        height: 71,
+                      ),
+                      Container(
+                        width: 225,
+                        child: Text(
+                          'Como obter meu Cartão SUS?',
+                          style: TextStyles.titleCardPrimary,
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),

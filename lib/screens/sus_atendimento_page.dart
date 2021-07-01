@@ -29,18 +29,35 @@ class SusAtendimentoPage extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 20),
-            GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, '/card-sus');
-              },
-              child: Card(
-                child: ListTile(
-                  leading: Icon(Icons.check),
-                  title: Text('Como obter meu Cartão SUS?',
-                      style: TextStyles.titleCardPrimary),
+            Container(
+              height: 71,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, '/card-sus');
+                },
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        AppImages.iconCardSus,
+                        height: 71,
+                      ),
+                      Container(
+                        width: 225,
+                        child: Text(
+                          'Como obter meu Cartão SUS?',
+                          style: TextStyles.titleCardPrimary,
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),

@@ -16,6 +16,7 @@ class _ServicesPageState extends State<ServicesPage> {
   TextEditingController editingController = TextEditingController();
   List cards = [
     {
+      'contentPaddingLeft': 15.0,
       'icon': Icon(
         Icons.favorite,
         size: 40.0,
@@ -25,6 +26,7 @@ class _ServicesPageState extends State<ServicesPage> {
       'route-page': '/map',
     },
     {
+      'contentPaddingLeft': 15.0,
       'icon': Image.asset(
         AppImages.susLogo,
         height: 40,
@@ -33,7 +35,10 @@ class _ServicesPageState extends State<ServicesPage> {
       'route-page': '/sus-atendimento',
     },
     {
-      'icon': Icon(Icons.check),
+      'contentPaddingLeft': 0.0,
+      'icon': Image.asset(
+        AppImages.iconCardSus,
+      ),
       'title': 'Como obter meu Cartão SUS?',
       'route-page': '/card-sus',
     },
@@ -103,7 +108,7 @@ class _ServicesPageState extends State<ServicesPage> {
           Expanded(
             child: ListView.builder(
               itemCount: cardsFilters.length,
-              padding: const EdgeInsets.only(top: 10.0),
+              padding: EdgeInsets.only(top: 10.0),
               itemBuilder: (context, index) {
                 return Container(
                   child: GestureDetector(
@@ -116,6 +121,9 @@ class _ServicesPageState extends State<ServicesPage> {
                         borderRadius: BorderRadius.circular(15.0),
                       ),
                       child: ListTile(
+                        contentPadding: EdgeInsets.only(
+                          left: cardsFilters[index]['contentPaddingLeft'],
+                        ),
                         leading: cardsFilters[index]['icon'],
                         title: Text(cardsFilters[index]['title'],
                             style: TextStyles.titleCardPrimary),

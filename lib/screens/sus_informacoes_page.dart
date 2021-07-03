@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nossosus_app/shared/themes/app_images.dart';
 import 'package:nossosus_app/shared/themes/app_text_styles.dart';
 
-import 'botton_bar.dart';
+import 'bottom_bar.dart';
 
 class SusAtendimentoPage extends StatelessWidget {
   const SusAtendimentoPage({Key? key}) : super(key: key);
@@ -61,8 +61,8 @@ class SusAtendimentoPage extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: BottonBar(
-        activeBottom: 1,
+      bottomNavigationBar: BottomBar(
+        activeBotton: 1,
       ),
     );
   }

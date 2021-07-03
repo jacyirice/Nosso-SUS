@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:nossosus_app/shared/themes/app_colors.dart';
 
-class BottonBar extends StatelessWidget {
-  final activeBottom;
-  const BottonBar({this.activeBottom, Key? key}) : super(key: key);
+class BottomBar extends StatelessWidget {
+  final activeBotton;
+  const BottomBar({this.activeBotton, Key? key}) : super(key: key);
 
-  Color _getColorBottom(int pos) {
-    if (activeBottom == pos)
+  Color _getColorBotton(int pos) {
+    if (activeBotton == pos)
       return AppColors.bottomSelect;
     else
       return AppColors.bottomNotSelect;
@@ -28,7 +28,7 @@ class BottonBar extends StatelessWidget {
               }
             },
             icon: Icon(Icons.home_outlined),
-            color: _getColorBottom(0),
+            color: _getColorBotton(0),
           ),
           IconButton(
             onPressed: () {
@@ -38,7 +38,7 @@ class BottonBar extends StatelessWidget {
               }
             },
             icon: Icon(Icons.menu),
-            color: _getColorBottom(1),
+            color: _getColorBotton(1),
           ),
         ],
       ),

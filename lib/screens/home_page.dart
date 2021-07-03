@@ -208,7 +208,7 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      bottomNavigationBar: AppBottom(
+      bottomNavigationBar: BottomBar(
         activeBottom: 0,
       ),
     );

@@ -145,7 +145,7 @@ class _ServicesPageState extends State<ServicesPage> {
           )
         ],
       ),
-      bottomNavigationBar: AppBottom(
+      bottomNavigationBar: BottomBar(
         activeBottom: 1,
       ),
     );

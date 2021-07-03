@@ -34,7 +34,7 @@ class _DetalheUbsPageState extends State<DetalheUbsPage> {
       body: WebView(
         initialUrl: widget.linkUbs,
       ),
-      bottomNavigationBar: AppBottom(
+      bottomNavigationBar: BottomBar(
         activeBottom: 1,
       ),
     );

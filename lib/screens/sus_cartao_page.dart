@@ -90,7 +90,7 @@ class CardSusPage extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: AppBottom(
+      bottomNavigationBar: BottomBar(
         activeBottom: 1,
       ),
     );

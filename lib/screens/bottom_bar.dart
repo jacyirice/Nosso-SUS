@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:nossosus_app/shared/themes/app_colors.dart';
 
-class AppBottom extends StatelessWidget {
+class BottomBar extends StatelessWidget {
   final activeBottom;
-  const AppBottom({this.activeBottom, Key? key}) : super(key: key);
+  const BottomBar({this.activeBottom, Key? key}) : super(key: key);
 
   Color getColorBottom(int pos) {
     if (activeBottom == pos)

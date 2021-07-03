@@ -353,7 +353,7 @@ class _SearchPageState extends State<SearchPage> {
           }
         },
       ),
-      bottomNavigationBar: AppBottom(
+      bottomNavigationBar: BottomBar(
         activeBottom: 1,
       ),
     );

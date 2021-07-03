@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nossosus_app/shared/themes/app_images.dart';
 import 'package:nossosus_app/shared/themes/app_text_styles.dart';
 
-import 'bottom_bar.dart';
+import 'botton_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CardSusPage extends StatelessWidget {
@@ -90,7 +90,7 @@ class CardSusPage extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: BottomBar(
+      bottomNavigationBar: BottonBar(
         activeBottom: 1,
       ),
     );

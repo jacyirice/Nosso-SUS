@@ -8,7 +8,7 @@ import 'package:nossosus_app/shared/themes/app_colors.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'bottom_bar.dart';
+import 'botton_bar.dart';
 
 // Fornece a distancia entre duas coordenadas
 num _coordinateDistance(lat1, lon1, lat2, lon2) {
@@ -353,7 +353,7 @@ class _SearchPageState extends State<SearchPage> {
           }
         },
       ),
-      bottomNavigationBar: BottomBar(
+      bottomNavigationBar: BottonBar(
         activeBottom: 1,
       ),
     );

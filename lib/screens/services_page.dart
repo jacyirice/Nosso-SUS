@@ -3,7 +3,7 @@ import 'package:nossosus_app/shared/themes/app_colors.dart';
 import 'package:nossosus_app/shared/themes/app_images.dart';
 import 'package:nossosus_app/shared/themes/app_text_styles.dart';
 
-import 'bottom_bar.dart';
+import 'botton_bar.dart';
 
 class ServicesPage extends StatefulWidget {
   ServicesPage({Key? key}) : super(key: key);
@@ -145,7 +145,7 @@ class _ServicesPageState extends State<ServicesPage> {
           )
         ],
       ),
-      bottomNavigationBar: BottomBar(
+      bottomNavigationBar: BottonBar(
         activeBottom: 1,
       ),
     );

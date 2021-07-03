@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:nossosus_app/shared/themes/app_colors.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-import 'bottom_bar.dart';
+import 'botton_bar.dart';
 
 class DetalheUbsPage extends StatefulWidget {
   final linkUbs;
@@ -34,7 +34,7 @@ class _DetalheUbsPageState extends State<DetalheUbsPage> {
       body: WebView(
         initialUrl: widget.linkUbs,
       ),
-      bottomNavigationBar: BottomBar(
+      bottomNavigationBar: BottonBar(
         activeBottom: 1,
       ),
     );

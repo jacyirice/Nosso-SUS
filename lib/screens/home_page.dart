@@ -4,7 +4,7 @@ import 'package:nossosus_app/shared/themes/app_colors.dart';
 import 'package:nossosus_app/shared/themes/app_images.dart';
 import 'package:nossosus_app/shared/themes/app_text_styles.dart';
 
-import 'bottomBar.dart';
+import 'bottom_bar.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);

@@ -3,8 +3,8 @@ import 'package:nossosus_app/screens/home_page.dart';
 import 'package:nossosus_app/screens/search_page.dart';
 import 'package:nossosus_app/screens/services_page.dart';
 import 'package:nossosus_app/screens/splash_page.dart';
-import 'package:nossosus_app/screens/sus_atendimento_page.dart';
-import 'package:nossosus_app/screens/sus_informations_page.dart';
+import 'package:nossosus_app/screens/sus_informacoes_page.dart';
+import 'package:nossosus_app/screens/sus_cartao_page.dart';
 import 'package:nossosus_app/shared/themes/app_colors.dart';
 import 'package:firebase_core/firebase_core.dart';
 

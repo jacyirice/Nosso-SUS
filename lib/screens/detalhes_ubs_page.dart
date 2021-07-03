@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:nossosus_app/shared/themes/app_colors.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import 'bottomBar.dart';
@@ -25,7 +26,7 @@ class _DetalheUbsPageState extends State<DetalheUbsPage> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.white),
+          icon: Icon(Icons.arrow_back, color: AppColors.background),
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: Text('Detalhes da unidade'),

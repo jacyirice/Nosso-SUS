@@ -12,21 +12,13 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-  duringSplash() {
-    return 1;
-  }
-
-  Map<int, Widget> op = {1: HomePage()};
-
   @override
   Widget build(BuildContext context) {
     return AnimatedSplash(
       imagePath: AppImages.splash,
       home: HomePage(),
-      customFunction: duringSplash,
       duration: 2500,
-      type: AnimatedSplashType.BackgroundProcess,
-      outputAndHome: op,
+      type: AnimatedSplashType.StaticDuration,
     );
   }
 }

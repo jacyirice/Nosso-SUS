@@ -1,16 +1,33 @@
-# nossosus_app
+# App Nosso SUS
 
-A new Flutter project.
+Aplicação desenvolvida a fim de facilitar o acesso a informações sobre o SUS.
 
-## Getting Started
+## 🛠 Tecnologias
 
-This project is a starting point for a Flutter application.
+As seguintes ferramentas foram usadas na construção do projeto:
 
-A few resources to get you started if this is your first Flutter project:
+- [Flutter](https://flutter.dev/)
+- [Dart](https://dart.dev/)
+- [Google Maps for Flutter](https://pub.dev/packages/google_maps_flutter)
+- [Flutter Geolocator Plugin](https://pub.dev/packages/geolocator)
+- [Url Launcher](https://pub.dev/packages/url_launcher)
+- [FireBase](https://firebase.flutter.dev/docs/overview/)
+- [WebView for Flutter](https://pub.dev/packages/webview_flutter)
+- [Animated Splash Screen](https://pub.dev/packages/animated_splash)
+- [Url Launcher](https://pub.dev/packages/url_launcher)
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Funcionalidades
+- [x] Busca por conteúdos disponibilizados no aplicativo
+- [x] Informações sobre os procedimentos para obtenção do Cartão SUS
+- [x] Mapa com unidades de saúde
+- [x] Filtrar a lista das unidades pelo tipo de serviço de saúde/atendimento prestado
+- [x] Encontrar unidade mais proxima
+- [x] Detalhes de uma unidade de saúde 
+- [x] Informações sobre documentos necessários para atendimento nas unidades de saúde
+
+## Desenvolvido por
+[Jacyiricê Silva Oliveira](https://github.com/jacyirice/)
+
+## Disponivel em 
+[GitHub](https://github.com/jacyirice/Nosso-SUS)

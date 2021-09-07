@@ -3,7 +3,7 @@
 Aplicação desenvolvida a fim de facilitar o acesso a informações sobre o SUS.
 
 ### Video de apresentação
-[![Watch the video](https://i.imgur.com/vKb2F1B.png)](https://youtu.be/vt5fpE0bzSY)
+[![Watch the video](https://i.imgur.com/vKb2F1B.png)](https://www.youtube.com/watch?v=uQgNeoP9KpY)
 
 ## 🛠 Tecnologias
 

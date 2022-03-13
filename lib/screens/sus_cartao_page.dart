@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:nossosus_app/shared/themes/app_images.dart';
-import 'package:nossosus_app/shared/themes/app_text_styles.dart';
 import 'package:nossosus_app/widgets/bottom_bar_widget.dart';
 import 'package:nossosus_app/widgets/larger_card_widget.dart';
 

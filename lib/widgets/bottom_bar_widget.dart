@@ -1,9 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:nossosus_app/shared/themes/app_colors.dart';
 
-class BottomBarWidget extends StatelessWidget {
+class BottomBarWidget extends StatefulWidget {
   final ButtonSelected activeBotton;
+
   const BottomBarWidget(this.activeBotton, {Key? key}) : super(key: key);
+
+  @override
+  State<BottomBarWidget> createState() => _BottomBarWidgetState();
+}
+
+class _BottomBarWidgetState extends State<BottomBarWidget> {
+  Map optionsMenu = {
+    'home': {
+      'route': '/',
+      'icon': Icons.home_outlined,
+      'selected': ButtonSelected.home
+    },
+    'services': {
+      'route': '/services',
+      'icon': Icons.menu,
+      'selected': ButtonSelected.services
+    }
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -13,37 +32,31 @@ class BottomBarWidget extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          IconButton(
-            onPressed: () {
-              String? route = ModalRoute.of(context)?.settings.name;
-              if (route != '/') {
-                Navigator.pushNamed(context, '/');
-              }
-            },
-            icon: const Icon(Icons.home_outlined),
-            color: _getColorBotton(ButtonSelected.home),
-          ),
-          IconButton(
-            onPressed: () {
-              String? route = ModalRoute.of(context)?.settings.name;
-              if (route != '/services') {
-                Navigator.pushNamed(context, '/services');
-              }
-            },
-            icon: const Icon(Icons.menu),
-            color: _getColorBotton(ButtonSelected.services),
-          ),
+          _buildIconButton(context, 'home'),
+          _buildIconButton(context, 'services'),
         ],
       ),
     );
   }
 
   Color _getColorBotton(ButtonSelected botton) {
-    if (activeBotton == botton) {
+    if (widget.activeBotton == botton) {
       return AppColors.bottomSelect;
     } else {
       return AppColors.bottomNotSelect;
     }
+  }
+
+  _buildIconButton(context, String key) {
+    Map obj = optionsMenu[key];
+    return IconButton(
+      onPressed: () {
+        String? route = ModalRoute.of(context)?.settings.name;
+        if (route != obj['route']) Navigator.pushNamed(context, obj['route']);
+      },
+      icon: Icon(obj['icon']),
+      color: _getColorBotton(obj['selected']),
+    );
   }
 }
 

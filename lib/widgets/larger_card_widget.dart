@@ -5,37 +5,29 @@ class LargerCardWidget extends StatelessWidget {
   final VoidCallback onTap;
   final dynamic icon;
   final String textCard;
+  final bool listTile;
+  final double contentPaddingLeft;
 
   const LargerCardWidget({
     Key? key,
     required this.onTap,
     required this.icon,
     required this.textCard,
+    this.listTile = false,
+    this.contentPaddingLeft = 0.0,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 71,
+      height: listTile ? null : 71,
       child: GestureDetector(
         onTap: onTap,
         child: Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15.0),
           ),
-          child: Row(
-            children: [
-              icon,
-              SizedBox(
-                width: 225,
-                child: Text(
-                  textCard,
-                  style: TextStyles.titleCardPrimary,
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ],
-          ),
+          child: listTile ? _buildListTile() : _buildRow(),
         ),
       ),
       decoration: BoxDecoration(
@@ -47,6 +39,32 @@ class LargerCardWidget extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  _buildRow() {
+    return Row(
+      children: [
+        icon,
+        SizedBox(
+          width: 225,
+          child: Text(
+            textCard,
+            style: TextStyles.titleCardPrimary,
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ],
+    );
+  }
+
+  _buildListTile() {
+    return ListTile(
+      contentPadding: EdgeInsets.only(
+        left: contentPaddingLeft,
+      ),
+      leading: icon,
+      title: Text(textCard, style: TextStyles.titleCardPrimary),
     );
   }
 }

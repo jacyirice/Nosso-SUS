@@ -63,10 +63,10 @@ class _HomePageState extends State<HomePage> {
   _buildSearchField() {
     return TextField(
       controller: _myControllerSearch,
-      style: TextStyle(color: AppColors.background),
+      style: const TextStyle(color: AppColors.background),
       decoration: InputDecoration(
         hintText: 'O que você procura?',
-        hintStyle: TextStyle(color: AppColors.background),
+        hintStyle: const TextStyle(color: AppColors.background),
         suffixIcon: IconButton(
           onPressed: () {
             Navigator.push(
@@ -78,7 +78,7 @@ class _HomePageState extends State<HomePage> {
               ),
             );
           },
-          icon: Icon(
+          icon: const Icon(
             Icons.search,
             color: AppColors.background,
           ),
@@ -88,14 +88,14 @@ class _HomePageState extends State<HomePage> {
             borderRadius: BorderRadius.circular(252.0)),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(252.0),
-          borderSide: BorderSide(
+          borderSide: const BorderSide(
             color: AppColors.background,
             width: 2.0,
           ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(252.0),
-          borderSide: BorderSide(
+          borderSide: const BorderSide(
             color: AppColors.background,
             width: 2.0,
           ),
@@ -115,7 +115,7 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              ListTile(
+              const ListTile(
                 title: Text(
                   'Seja bem-vindo',
                   style: TextStyles.titleRegular,
@@ -125,9 +125,9 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: AppColors.primary,
-          borderRadius: const BorderRadius.only(
+          borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(67.0),
           ),
         ),

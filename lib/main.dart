@@ -37,7 +37,7 @@ class AppWidget extends StatelessWidget {
     return {
       '/': (context) => const HomePage(),
       '/services': (context) => const ServicesPage(),
-      '/splash': (context) => const SplashPage(),
+      '/splash': (context) => SplashPage(),
       '/map': (context) => SearchPage(),
       '/card-sus': (context) => const CardSusPage(),
       '/sus-atendimento': (context) => const SusAtendimentoPage(),

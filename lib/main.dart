@@ -7,12 +7,13 @@ import 'package:nossosus_app/screens/sus_informacoes_page.dart';
 import 'package:nossosus_app/screens/sus_cartao_page.dart';
 import 'package:nossosus_app/shared/themes/app_colors.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:nossosus_app/widgets/centered_circular_progress_indicator.dart';
 
-void main() {
-  runApp(AppWidget());
-}
+void main() => runApp(const AppWidget());
 
 class AppWidget extends StatelessWidget {
+  const AppWidget({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -24,19 +25,22 @@ class AppWidget extends StatelessWidget {
             title: 'Nosso SUS',
             theme: ThemeData(primaryColor: AppColors.primary),
             initialRoute: '/splash',
-            routes: {
-              '/': (context) => HomePage(),
-              '/services': (context) => ServicesPage(),
-              '/splash': (context) => SplashPage(),
-              '/map': (context) => SearchPage(),
-              '/card-sus': (context) => CardSusPage(),
-              '/sus-atendimento': (context) => SusAtendimentoPage(),
-            },
+            routes: _buildRouters(),
           );
         }
-        ;
-        return Center(child: CircularProgressIndicator());
+        return const CenteredCircularProgressIndicator();
       },
     );
+  }
+
+  _buildRouters() {
+    return {
+      '/': (context) => const HomePage(),
+      '/services': (context) => const ServicesPage(),
+      '/splash': (context) => const SplashPage(),
+      '/map': (context) => SearchPage(),
+      '/card-sus': (context) => const CardSusPage(),
+      '/sus-atendimento': (context) => const SusAtendimentoPage(),
+    };
   }
 }

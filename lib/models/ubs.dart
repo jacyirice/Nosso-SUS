@@ -4,8 +4,8 @@ class Ubs {
   final String cidade;
   final String servico;
   final String link;
-  final String loc_lat;
-  final String loc_long;
+  final String locLat;
+  final String locLong;
 
   Ubs({
     required this.id,
@@ -13,8 +13,8 @@ class Ubs {
     required this.cidade,
     required this.servico,
     required this.link,
-    required this.loc_lat,
-    required this.loc_long,
+    required this.locLat,
+    required this.locLong,
   });
 
   Ubs.fromJson(Map<String, dynamic> json)
@@ -24,8 +24,8 @@ class Ubs {
           cidade: json['cidade'],
           servico: json['servico'],
           link: json['link'],
-          loc_lat: json['loc_lat'],
-          loc_long: json['loc_long'],
+          locLat: json['loc_lat'],
+          locLong: json['loc_long'],
         );
 
   Map<String, dynamic> toJson() {
@@ -35,8 +35,8 @@ class Ubs {
       'cidade': cidade,
       'servico': servico,
       'link': link,
-      'loc_lat': loc_lat,
-      'loc_long': loc_long,
+      'loc_lat': locLat,
+      'loc_long': locLong,
     };
   }
 }

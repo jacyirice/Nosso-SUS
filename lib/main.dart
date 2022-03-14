@@ -24,7 +24,7 @@ class AppWidget extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             title: 'Nosso SUS',
             theme: ThemeData(primaryColor: AppColors.primary),
-            initialRoute: '/services',
+            initialRoute: '/splash',
             routes: _buildRouters(),
           );
         }
@@ -37,7 +37,7 @@ class AppWidget extends StatelessWidget {
     return {
       '/': (context) => const HomePage(),
       '/services': (context) => const ServicesPage(),
-      '/splash': (context) => SplashPage(),
+      '/splash': (context) => const SplashPage(),
       '/map': (context) => SearchPage(),
       '/card-sus': (context) => const CardSusPage(),
       '/sus-atendimento': (context) => const SusAtendimentoPage(),

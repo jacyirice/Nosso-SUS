@@ -73,7 +73,7 @@ class _HomePageState extends State<HomePage> {
               context,
               MaterialPageRoute(
                 builder: (context) => SearchPage(
-                  search_service: _myControllerSearch.text,
+                  searchService: _myControllerSearch.text,
                 ),
               ),
             );
